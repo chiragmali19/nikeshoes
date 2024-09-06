@@ -21,4 +21,5 @@ To run this app locally, follow these steps:
 1. **Clone the Repository**
 
    ```bash
-   git clone https://github.com/chiragmali19/nike-shoe-application.git
+  [ git clone https://github.com/chiragmali19/nike-shoe-application.git
+](https://github.com/chiragmali19/nikeshoes.git)
