@@ -91,7 +91,7 @@ class _HomePageState extends State<HomePage> {
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                     ),
-                    borderRadius: BorderRadius.circular(30), // Rounded edges
+                     // Rounded edges
                   ),
                   child: Align(
                     alignment: Alignment.bottomCenter,
