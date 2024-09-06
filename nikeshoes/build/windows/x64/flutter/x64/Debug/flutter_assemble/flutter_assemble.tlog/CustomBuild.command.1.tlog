@@ -1,0 +1,28 @@
+^D:\CODING FILES\FLUTTER\NEW PROJECTS\NIKESHOES\NIKESHOES\BUILD\WINDOWS\X64\CMAKEFILES\9F339EEF08551E8C04960DA4716A915B\FLUTTER_WINDOWS.DLL.RULE
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E env FLUTTER_ROOT=D:\fluttersdk\flutter "PROJECT_DIR=D:\Coding Files\Flutter\new projects\nikeshoes\nikeshoes" FLUTTER_ROOT=D:\fluttersdk\flutter "FLUTTER_EPHEMERAL_DIR=D:\Coding Files\Flutter\new projects\nikeshoes\nikeshoes\windows\flutter\ephemeral" "PROJECT_DIR=D:\Coding Files\Flutter\new projects\nikeshoes\nikeshoes" "FLUTTER_TARGET=D:\Coding Files\Flutter\new projects\nikeshoes\nikeshoes\lib\main.dart" DART_OBFUSCATION=false TRACK_WIDGET_CREATION=true TREE_SHAKE_ICONS=false "PACKAGE_CONFIG=D:\Coding Files\Flutter\new projects\nikeshoes\nikeshoes\.dart_tool\package_config.json" D:/fluttersdk/flutter/packages/flutter_tools/bin/tool_backend.bat windows-x64 Debug
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^D:\CODING FILES\FLUTTER\NEW PROJECTS\NIKESHOES\NIKESHOES\BUILD\WINDOWS\X64\CMAKEFILES\DE35BCA8DBCD3EF1BE8E87F37583F3B0\FLUTTER_ASSEMBLE.RULE
+setlocal
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^D:\CODING FILES\FLUTTER\NEW PROJECTS\NIKESHOES\NIKESHOES\WINDOWS\FLUTTER\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" "-SD:/Coding Files/Flutter/new projects/nikeshoes/nikeshoes/windows" "-BD:/Coding Files/Flutter/new projects/nikeshoes/nikeshoes/build/windows/x64" --check-stamp-file "D:/Coding Files/Flutter/new projects/nikeshoes/nikeshoes/build/windows/x64/flutter/CMakeFiles/generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

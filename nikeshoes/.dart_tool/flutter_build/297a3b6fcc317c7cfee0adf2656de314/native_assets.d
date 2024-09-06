@@ -1,0 +1,1 @@
+ D:\\Coding\ Files\\Flutter\\new\ projects\\nikeshoes\\nikeshoes\\.dart_tool\\flutter_build\\297a3b6fcc317c7cfee0adf2656de314\\native_assets.yaml: 
