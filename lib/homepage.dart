@@ -1,293 +1,114 @@
-// ignore_for_file: deprecated_member_use
-
 import 'package:flutter/material.dart';
-import 'package:nikeshoes/cartscreen.dart';
+import 'package:nikeshoes/shoesproduct_screen.dart';
 
-class ShoeProductsPage extends StatefulWidget {
-  const ShoeProductsPage({super.key});
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
 
   @override
   // ignore: library_private_types_in_public_api
-  _ShoeProductsPageState createState() => _ShoeProductsPageState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _ShoeProductsPageState extends State<ShoeProductsPage> {
-  String _selectedCategory = 'Lifestyle'; // Default selected category
-
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // AppBar Section
-              const Padding(
-                padding:
-                    EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Icon(Icons.menu, color: Colors.black),
-                    Icon(Icons.search, color: Colors.black)
-                  ],
-                ),
+      backgroundColor: Colors.black,
+      body: Stack(
+        children: [
+          // Background Image covering the entire page
+          Positioned.fill(
+            child: Opacity(
+              opacity: 0.5,
+              child: Image.asset(
+                'assets/images/background.png', // Replace with your background image path
+                fit: BoxFit.fill,
               ),
-              const SizedBox(height: 10),
-              // New Release Banner
-              Container(
-                margin: const EdgeInsets.symmetric(horizontal: 16.0),
-                padding: const EdgeInsets.all(16.0),
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      Colors.black,
-                      Colors.black,
-                      Colors.orange.withOpacity(0.6)
-                    ],
+            ),
+          ),
+          // Layout with shoe, text, and arrow
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              // Centered shoe image
+              Image.asset(
+                'assets/images/shoe2.png', // Replace with your shoe image path
+                fit: BoxFit.contain,
+              ),
+              // Text between shoe and arrow
+              const Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    'LIVE YOUR\nPERFECT',
+                    style: TextStyle(
+                      fontSize: 44, // Adjust font size
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white, // Changed to white
+                    ),
+                    textAlign: TextAlign.center,
                   ),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Row(
-                  children: [
-                    Expanded(
+                  SizedBox(height: 10),
+                  Text(
+                    'Smart, gorgeous & fashionable \n collection makes you cool',
+                    style: TextStyle(
+                      fontSize: 16, // Adjust font size
+                      color: Colors.white, // Changed to white
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: 30),
+                ],
+              ),
+              // Get Started section with arrows
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const ShoeProductsPage()),
+                  );
+                },
+                child: Container(
+                  height: 200, // Increased height for the orange area
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        Colors.orange.withOpacity(0.0),
+                        Colors.orange,
+                      ],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                    ),
+                     // Rounded edges
+                  ),
+                  child: const Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Padding(
+                      padding: EdgeInsets.only(bottom: 40.0),
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
                         children: [
-                          const Text(
-                            'New Release',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold),
+                          Icon(
+                            Icons.keyboard_double_arrow_up,
+                            color: Colors.white,
+                            size: 30,
                           ),
-                          const Text(
-                            'Nike Air \nMax 90',
+                          SizedBox(height: 10),
+                          Text(
+                            'Get Started',
                             style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 28,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          const SizedBox(height: 10),
-                          ElevatedButton(
-                            onPressed: () {},
-                            style: ElevatedButton.styleFrom(
-                              foregroundColor: Colors.black,
-                              backgroundColor: Colors.white,
+                              fontSize: 18,
+                              color: Colors.white,
                             ),
-                            child: const Text('Shop Now'),
                           ),
                         ],
                       ),
                     ),
-                    Image.asset(
-                      'assets/images/pair.png', // Replace with actual shoe image URL
-                      height: 150,
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 20),
-              // Category Section with Horizontal Scroll
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                height: 60, // Adjust height as needed
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: [
-                      CategoryChip('Lifestyle',
-                          imagePath: 'assets/images/shoe1.png',
-                          isSelected: _selectedCategory == 'Lifestyle',
-                          onTap: () {
-                        setState(() {
-                          _selectedCategory = 'Lifestyle';
-                        });
-                      }),
-                      const SizedBox(width: 16), // Spacing between chips
-                      CategoryChip('Basketball',
-                          imagePath: 'assets/images/shoe2.png',
-                          isSelected: _selectedCategory == 'Basketball',
-                          onTap: () {
-                        setState(() {
-                          _selectedCategory = 'Basketball';
-                        });
-                      }),
-                      const SizedBox(width: 16), // Spacing between chips
-                      CategoryChip('Running',
-                          imagePath: 'assets/images/color1.png',
-                          isSelected: _selectedCategory == 'Running',
-                          onTap: () {
-                        setState(() {
-                          _selectedCategory = 'Running';
-                        });
-                      }),
-                    ],
                   ),
                 ),
               ),
-              const SizedBox(height: 20),
-              // New Men's Section
-              const Padding(
-                padding:  EdgeInsets.symmetric(horizontal: 16.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('New Men\'s',
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold)),
-                    Text('See all', style: TextStyle(color: Colors.grey)),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 20),
-              // Shoes Grid Section
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: GridView.builder(
-                  shrinkWrap:
-                      true, // Ensure GridView doesn't take up infinite space
-                  physics:
-                      const NeverScrollableScrollPhysics(), // Disable GridView's scrolling
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    childAspectRatio: 0.75,
-                    crossAxisSpacing: 16.0,
-                    mainAxisSpacing: 16.0,
-                  ),
-                  itemCount: 4, // Update with actual number of shoes
-                  itemBuilder: (context, index) {
-                    return const ShoeCard();
-                  },
-                ),
-              ),
-              const SizedBox(height: 20),
             ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class CategoryChip extends StatelessWidget {
-  final String label;
-  final String imagePath;
-  final bool isSelected;
-  final VoidCallback onTap;
-
-  const CategoryChip(this.label,
-      {super.key, required this.imagePath, this.isSelected = false, required this.onTap});
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        decoration: BoxDecoration(
-          color: isSelected ? Colors.orange : Colors.grey[200],
-          borderRadius: BorderRadius.circular(30),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.2),
-              spreadRadius: isSelected ? 3 : 1,
-              blurRadius: isSelected ? 10 : 3,
-            ),
-          ],
-        ),
-        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Image.asset(
-              imagePath,
-              height: 24, // Adjust size as needed
-            ),
-            const SizedBox(width: 8),
-            Text(
-              label,
-              style: TextStyle(
-                color: isSelected ? Colors.white : Colors.black,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class ShoeCard extends StatelessWidget {
-  const ShoeCard({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      elevation: 3,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-      child: Stack(
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Center(
-                child: Image.asset(
-                  'assets/images/color2.png', // Replace with actual shoe image URL
-                  height: 120, // Larger shoe image
-                  fit: BoxFit.contain, // Adjusts image to fit
-                ),
-              ),
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Men\'s Shoes',
-                      style: TextStyle(
-                        color: Colors.red, // Red color for the label
-                        fontSize: 12,
-                      ),
-                    ),
-                    Text(
-                      'Creter Impact',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(height: 5),
-                    Text(
-                      '\$99.56',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          Positioned(
-            bottom: 8,
-            right: 8,
-            child: Container(
-              decoration: const BoxDecoration(
-                color: Colors.black, // Black background for the button
-                shape: BoxShape.circle,
-              ),
-              child: IconButton(
-                icon: const Icon(Icons.add, color: Colors.white), // White "+" icon
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const AddToCartPage()));
-                },
-              ),
-            ),
           ),
         ],
       ),

@@ -1,0 +1,67 @@
+{
+  "project_info": {
+    "project_number": "843970343429",
+    "project_id": "project0-658f8",
+    "storage_bucket": "project0-658f8.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:843970343429:android:95afcc287ded13dd3ba26c",
+        "android_client_info": {
+          "package_name": "com.e"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDzZUw7HALjxVjhYvVV40M-NeM7BavSyWQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:843970343429:android:f6cf458ffc64e1d33ba26c",
+        "android_client_info": {
+          "package_name": "com.example.nikeshoes"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDzZUw7HALjxVjhYvVV40M-NeM7BavSyWQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:843970343429:android:44d54d8ad50216fb3ba26c",
+        "android_client_info": {
+          "package_name": "com.example.project0"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDzZUw7HALjxVjhYvVV40M-NeM7BavSyWQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
