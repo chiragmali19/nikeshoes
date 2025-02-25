@@ -1,6 +1,10 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 
 class AddToCartPage extends StatefulWidget {
+  const AddToCartPage({super.key});
+
   @override
   _AddToCartPageState createState() => _AddToCartPageState();
 }
@@ -41,9 +45,9 @@ class _AddToCartPageState extends State<AddToCartPage> {
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      child: Icon(Icons.arrow_back, color: Colors.black),
+                      child: const Icon(Icons.arrow_back, color: Colors.black),
                     ),
-                    Text(
+                    const Text(
                       'Men\'s Shoes',
                       style: TextStyle(
                         fontSize: 20,
@@ -51,11 +55,12 @@ class _AddToCartPageState extends State<AddToCartPage> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    Icon(Icons.shopping_bag_outlined, color: Colors.black),
+                    const Icon(Icons.shopping_bag_outlined,
+                        color: Colors.black),
                   ],
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
 
               // Shoe Image with Slider
               Center(
@@ -68,18 +73,18 @@ class _AddToCartPageState extends State<AddToCartPage> {
                         height: 180,
                       ),
                     ),
-                    SizedBox(height: 10),
-                    Icon(Icons.circle,
+                    const SizedBox(height: 10),
+                    const Icon(Icons.circle,
                         color: Colors.red, size: 20), // Dummy slider indicator
                   ],
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
 
               // Product Info Section
               Container(
-                padding: EdgeInsets.all(16.0),
-                decoration: BoxDecoration(
+                padding: const EdgeInsets.all(16.0),
+                decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(20),
@@ -89,15 +94,15 @@ class _AddToCartPageState extends State<AddToCartPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    const Text(
                       'Creter Impact',
                       style: TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(height: 5),
-                    Row(
+                    const SizedBox(height: 5),
+                    const Row(
                       children: [
                         Icon(Icons.star, color: Colors.orange, size: 20),
                         SizedBox(width: 5),
@@ -112,27 +117,27 @@ class _AddToCartPageState extends State<AddToCartPage> {
                             style: TextStyle(color: Colors.grey)),
                       ],
                     ),
-                    SizedBox(height: 10),
-                    Text(
+                    const SizedBox(height: 10),
+                    const Text(
                       'Taking the classic look of heritage Nike Running into a new realm, the Nike Air Max Pre-Day brings...',
                       style: TextStyle(color: Colors.grey),
                     ),
-                    SizedBox(height: 5),
-                    Text(
+                    const SizedBox(height: 5),
+                    const Text(
                       'Read More',
                       style: TextStyle(
                         color: Colors.red,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
 
                     // Select Color Section
-                    Text(
+                    const Text(
                       'Select Color :',
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Row(
                       children: [
                         // Color option 1
@@ -148,7 +153,7 @@ class _AddToCartPageState extends State<AddToCartPage> {
                                 _selectedColor == 'assets/images/color2.png',
                           ),
                         ),
-                        SizedBox(width: 10),
+                        const SizedBox(width: 10),
                         // Color option 2
                         GestureDetector(
                           onTap: () {
@@ -162,7 +167,7 @@ class _AddToCartPageState extends State<AddToCartPage> {
                                 _selectedColor == 'assets/images/color1.png',
                           ),
                         ),
-                        SizedBox(width: 10),
+                        const SizedBox(width: 10),
                         // Color option 3
                         GestureDetector(
                           onTap: () {
@@ -178,15 +183,15 @@ class _AddToCartPageState extends State<AddToCartPage> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
 
                     // Size Selection Section
-                    Text(
+                    const Text(
                       'Size :',
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(height: 20),
-                    Row(
+                    const SizedBox(height: 20),
+                    const Row(
                       children: [
                         SizeOption(size: '40', isSelected: false),
                         SizeOption(size: '41', isSelected: false),
@@ -196,12 +201,12 @@ class _AddToCartPageState extends State<AddToCartPage> {
                         SizeOption(size: '44', isSelected: false),
                       ],
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
 
                     // Price and Add to Bag Section
                     Container(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 40, horizontal: 10),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 40, horizontal: 10),
                       decoration: BoxDecoration(
                         color: Colors.black,
                         borderRadius: BorderRadius.circular(40),
@@ -209,11 +214,11 @@ class _AddToCartPageState extends State<AddToCartPage> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Column(
+                          const Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Padding(
-                                padding: const EdgeInsets.only(right: 22),
+                                padding: EdgeInsets.only(right: 22),
                                 child: Text(
                                   'Price',
                                   style: TextStyle(
@@ -233,7 +238,7 @@ class _AddToCartPageState extends State<AddToCartPage> {
                               ),
                             ],
                           ),
-                          SizedBox(height: 20),
+                          const SizedBox(height: 20),
                           Center(
                             child: SizedBox(
                               width: 200,
@@ -249,7 +254,7 @@ class _AddToCartPageState extends State<AddToCartPage> {
                                 onPressed: () {
                                   // Add to bag action
                                 },
-                                child: Text(
+                                child: const Text(
                                   'Add to Bag',
                                   style: TextStyle(
                                     color: Colors.white,
@@ -292,11 +297,11 @@ class _AddToCartPageState extends State<AddToCartPage> {
                     fit: BoxFit.contain,
                   ),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Align(
                   alignment: Alignment.centerRight,
                   child: IconButton(
-                    icon: Icon(Icons.close),
+                    icon: const Icon(Icons.close),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
@@ -316,6 +321,7 @@ class ColorOption extends StatelessWidget {
   final bool isSelected;
 
   const ColorOption({
+    super.key,
     required this.imagePath,
     required this.isSelected,
   });
@@ -323,7 +329,7 @@ class ColorOption extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(8),
+      padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
         border: Border.all(color: isSelected ? Colors.orange : Colors.grey),
         borderRadius: BorderRadius.circular(10),
@@ -340,14 +346,14 @@ class SizeOption extends StatelessWidget {
   final String size;
   final bool isSelected;
 
-  const SizeOption({required this.size, required this.isSelected});
+  const SizeOption({super.key, required this.size, required this.isSelected});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
         decoration: BoxDecoration(
           color: isSelected ? Colors.orange : Colors.grey[200],
           borderRadius: BorderRadius.circular(8),

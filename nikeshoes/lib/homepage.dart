@@ -1,8 +1,13 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:nikeshoes/cartscreen.dart';
 
 class ShoeProductsPage extends StatefulWidget {
+  const ShoeProductsPage({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _ShoeProductsPageState createState() => _ShoeProductsPageState();
 }
 
@@ -19,9 +24,9 @@ class _ShoeProductsPageState extends State<ShoeProductsPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // AppBar Section
-              Padding(
+              const Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                    EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -30,11 +35,11 @@ class _ShoeProductsPageState extends State<ShoeProductsPage> {
                   ],
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               // New Release Banner
               Container(
-                margin: EdgeInsets.symmetric(horizontal: 16.0),
-                padding: EdgeInsets.all(16.0),
+                margin: const EdgeInsets.symmetric(horizontal: 16.0),
+                padding: const EdgeInsets.all(16.0),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
@@ -51,28 +56,28 @@ class _ShoeProductsPageState extends State<ShoeProductsPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
+                          const Text(
                             'New Release',
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold),
                           ),
-                          Text(
+                          const Text(
                             'Nike Air \nMax 90',
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 28,
                                 fontWeight: FontWeight.bold),
                           ),
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
                           ElevatedButton(
                             onPressed: () {},
                             style: ElevatedButton.styleFrom(
                               foregroundColor: Colors.black,
                               backgroundColor: Colors.white,
                             ),
-                            child: Text('Shop Now'),
+                            child: const Text('Shop Now'),
                           ),
                         ],
                       ),
@@ -84,10 +89,10 @@ class _ShoeProductsPageState extends State<ShoeProductsPage> {
                   ],
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               // Category Section with Horizontal Scroll
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 16.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 height: 60, // Adjust height as needed
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
@@ -101,7 +106,7 @@ class _ShoeProductsPageState extends State<ShoeProductsPage> {
                           _selectedCategory = 'Lifestyle';
                         });
                       }),
-                      SizedBox(width: 16), // Spacing between chips
+                      const SizedBox(width: 16), // Spacing between chips
                       CategoryChip('Basketball',
                           imagePath: 'assets/images/shoe2.png',
                           isSelected: _selectedCategory == 'Basketball',
@@ -110,7 +115,7 @@ class _ShoeProductsPageState extends State<ShoeProductsPage> {
                           _selectedCategory = 'Basketball';
                         });
                       }),
-                      SizedBox(width: 16), // Spacing between chips
+                      const SizedBox(width: 16), // Spacing between chips
                       CategoryChip('Running',
                           imagePath: 'assets/images/color1.png',
                           isSelected: _selectedCategory == 'Running',
@@ -123,10 +128,10 @@ class _ShoeProductsPageState extends State<ShoeProductsPage> {
                   ),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               // New Men's Section
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -137,16 +142,16 @@ class _ShoeProductsPageState extends State<ShoeProductsPage> {
                   ],
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               // Shoes Grid Section
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 16.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: GridView.builder(
                   shrinkWrap:
                       true, // Ensure GridView doesn't take up infinite space
                   physics:
-                      NeverScrollableScrollPhysics(), // Disable GridView's scrolling
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      const NeverScrollableScrollPhysics(), // Disable GridView's scrolling
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     childAspectRatio: 0.75,
                     crossAxisSpacing: 16.0,
@@ -154,11 +159,11 @@ class _ShoeProductsPageState extends State<ShoeProductsPage> {
                   ),
                   itemCount: 4, // Update with actual number of shoes
                   itemBuilder: (context, index) {
-                    return ShoeCard();
+                    return const ShoeCard();
                   },
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
             ],
           ),
         ),
@@ -174,26 +179,28 @@ class CategoryChip extends StatelessWidget {
   final VoidCallback onTap;
 
   const CategoryChip(this.label,
-      {required this.imagePath, this.isSelected = false, required this.onTap});
+      {super.key, required this.imagePath, this.isSelected = false, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
       child: AnimatedContainer(
-        duration: Duration(milliseconds: 200),
+        duration: const Duration(milliseconds: 200),
         decoration: BoxDecoration(
           color: isSelected ? Colors.orange : Colors.grey[200],
           borderRadius: BorderRadius.circular(30),
           boxShadow: [
             BoxShadow(
+              // ignore: duplicate_ignore
+              // ignore: deprecated_member_use
               color: Colors.black.withOpacity(0.2),
               spreadRadius: isSelected ? 3 : 1,
               blurRadius: isSelected ? 10 : 3,
             ),
           ],
         ),
-        padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -201,7 +208,7 @@ class CategoryChip extends StatelessWidget {
               imagePath,
               height: 24, // Adjust size as needed
             ),
-            SizedBox(width: 8),
+            const SizedBox(width: 8),
             Text(
               label,
               style: TextStyle(
@@ -216,6 +223,8 @@ class CategoryChip extends StatelessWidget {
 }
 
 class ShoeCard extends StatelessWidget {
+  const ShoeCard({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -233,8 +242,8 @@ class ShoeCard extends StatelessWidget {
                   fit: BoxFit.contain, // Adjusts image to fit
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
+              const Padding(
+                padding: EdgeInsets.all(8.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -269,15 +278,15 @@ class ShoeCard extends StatelessWidget {
             bottom: 8,
             right: 8,
             child: Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.black, // Black background for the button
                 shape: BoxShape.circle,
               ),
               child: IconButton(
-                icon: Icon(Icons.add, color: Colors.white), // White "+" icon
+                icon: const Icon(Icons.add, color: Colors.white), // White "+" icon
                 onPressed: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => AddToCartPage()));
+                      MaterialPageRoute(builder: (context) => const AddToCartPage()));
                 },
               ),
             ),

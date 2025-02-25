@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Nike Shoe Application
 
 Welcome to the Nike Shoe Application! This Flutter app offers a modern and interactive shopping experience for Nike shoes, inspired by a design concept found on Dribbble.
@@ -22,3 +23,21 @@ To run this app locally, follow these steps:
 
    ```bash
   [ git clone ](https://github.com/chiragmali19/nikeshoes.git)
+=======
+# nikeshoes
+
+A new Flutter project.
+
+## Getting Started
+
+This project is a starting point for a Flutter application.
+
+A few resources to get you started if this is your first Flutter project:
+
+- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
+- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+
+For help getting started with Flutter development, view the
+[online documentation](https://docs.flutter.dev/), which offers tutorials,
+samples, guidance on mobile development, and a full API reference.
+>>>>>>> 586ec84 (Updated)

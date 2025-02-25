@@ -1,14 +1,18 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:nikeshoes/homepage.dart'; // Make sure to import the second page
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: HomePage(),
     );
@@ -16,6 +20,8 @@ class MyApp extends StatelessWidget {
 }
 
 class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -47,7 +53,7 @@ class _HomePageState extends State<HomePage> {
                 fit: BoxFit.contain,
               ),
               // Text between shoe and arrow
-              Column(
+              const Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
@@ -76,15 +82,16 @@ class _HomePageState extends State<HomePage> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => ShoeProductsPage()),
+                    MaterialPageRoute(builder: (context) => const ShoeProductsPage()),
                   );
                 },
                 child: Container(
                   height: 200, // Increased height for the orange area
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       colors: [
+                        // ignore: deprecated_member_use
                         Colors.orange.withOpacity(0.0),
                         Colors.orange,
                       ],
@@ -93,10 +100,10 @@ class _HomePageState extends State<HomePage> {
                     ),
                      // Rounded edges
                   ),
-                  child: Align(
+                  child: const Align(
                     alignment: Alignment.bottomCenter,
                     child: Padding(
-                      padding: const EdgeInsets.only(bottom: 40.0),
+                      padding: EdgeInsets.only(bottom: 40.0),
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
