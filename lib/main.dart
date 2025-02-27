@@ -1,17 +1,15 @@
 // ignore_for_file: deprecated_member_use
 
-import 'package:flutter/material.dart';
-import 'package:nikeshoes/screens/StartUpScreens/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
+import 'package:flutter/material.dart';
+import 'package:nikeshoes/screens/StartUpScreens/splash_screen.dart'; // Replace with your app's entry point
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  runApp(MyApp());
+  await Firebase.initializeApp(); // Initialize Firebase
+  runApp(MyApp()); // Your main app
 }
+
 
 class MyApp extends StatelessWidget {
   @override

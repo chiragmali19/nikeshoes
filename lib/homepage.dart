@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:nikeshoes/shoesproduct_screen.dart';
 
@@ -10,9 +11,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  signOut() async {
+    await FirebaseAuth.instance.signOut();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       backgroundColor: Colors.black,
       body: Stack(
         children: [
@@ -65,12 +71,14 @@ class _HomePageState extends State<HomePage> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const ShoeProductsPage()),
+                    MaterialPageRoute(
+                        builder: (context) => const ShoeProductsPage()),
                   );
                 },
                 child: Container(
                   height: 200, // Increased height for the orange area
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       colors: [
@@ -80,7 +88,7 @@ class _HomePageState extends State<HomePage> {
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                     ),
-                     // Rounded edges
+                    // Rounded edges
                   ),
                   child: const Align(
                     alignment: Alignment.bottomCenter,

@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:nikeshoes/cartscreen.dart';
+import 'package:nikeshoes/drawer_screen.dart';
 
 class ShoeProductsPage extends StatefulWidget {
   const ShoeProductsPage({super.key});
@@ -17,21 +18,40 @@ class _ShoeProductsPageState extends State<ShoeProductsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // appBar: AppBar(
+      //   leading: IconButton(
+      //       onPressed: () {
+      //         Navigator.push(context,
+      //             MaterialPageRoute(builder: (context) => LoginPage()));
+      //       },
+      //       icon: Icon(Icons.abc)),
+      // ),
+      drawer: const DrawerScreen(),
       backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // Icon(Icons.logout),
               // AppBar Section
-              const Padding(
+              Padding(
                 padding:
-                    EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                    const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Icon(Icons.menu, color: Colors.black),
-                    Icon(Icons.search, color: Colors.black)
+                    Builder(builder: (context) {
+                      return IconButton(
+                        onPressed: () {
+                          Scaffold.of(context)
+                              .openDrawer(); // This will open the drawer
+                        },
+                        icon: const Icon(Icons.menu),
+                        color: Colors.black,
+                      );
+                    }),
+                    const Icon(Icons.search, color: Colors.black)
                   ],
                 ),
               ),
@@ -131,7 +151,7 @@ class _ShoeProductsPageState extends State<ShoeProductsPage> {
               const SizedBox(height: 20),
               // New Men's Section
               const Padding(
-                padding:  EdgeInsets.symmetric(horizontal: 16.0),
+                padding: EdgeInsets.symmetric(horizontal: 16.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -179,7 +199,10 @@ class CategoryChip extends StatelessWidget {
   final VoidCallback onTap;
 
   const CategoryChip(this.label,
-      {super.key, required this.imagePath, this.isSelected = false, required this.onTap});
+      {super.key,
+      required this.imagePath,
+      this.isSelected = false,
+      required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -281,10 +304,13 @@ class ShoeCard extends StatelessWidget {
                 shape: BoxShape.circle,
               ),
               child: IconButton(
-                icon: const Icon(Icons.add, color: Colors.white), // White "+" icon
+                icon: const Icon(Icons.add,
+                    color: Colors.white), // White "+" icon
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const AddToCartPage()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const AddToCartPage()));
                 },
               ),
             ),

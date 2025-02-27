@@ -1,0 +1,2 @@
+C:/Users/admin/Desktop/new p/nikeshoes-main/nikeshoes/android/app/.cxx/Debug/5f6r4s5v/armeabi-v7a/CMakeFiles/edit_cache.dir
+C:/Users/admin/Desktop/new p/nikeshoes-main/nikeshoes/android/app/.cxx/Debug/5f6r4s5v/armeabi-v7a/CMakeFiles/rebuild_cache.dir

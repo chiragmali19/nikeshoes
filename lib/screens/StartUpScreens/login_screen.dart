@@ -1,6 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:nikeshoes/screens/StartUpScreens/signup_screen.dart';
+import 'package:nikeshoes/shoesproduct_screen.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -13,6 +17,82 @@ class _LoginPageState extends State<LoginPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   bool _obscurePassword = true;
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
+
+  // Email & Password Sign-in Method
+  signInWithEmailAndPassword(BuildContext context) async {
+    try {
+      await _auth.signInWithEmailAndPassword(
+        email: _emailController.text,
+        password: _passwordController.text,
+      );
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const ShoeProductsPage()),
+      );
+    } on FirebaseAuthException catch (e) {
+      String errorMessage = '';
+      if (e.code == 'user-not-found') {
+        errorMessage = 'No user found for that email.';
+      } else if (e.code == 'wrong-password') {
+        errorMessage = 'Wrong password provided for that user.';
+      }
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(errorMessage)),
+      );
+    }
+  }
+
+  // Google Sign-in Method
+ Future<User?> _googleSignInMethod() async {
+  try {
+    final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+    if (googleUser == null) {
+      return null; // User canceled sign-in
+    }
+
+    final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+    final AuthCredential credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+
+    final UserCredential userCredential =
+        await _auth.signInWithCredential(credential);
+
+    final User? user = userCredential.user;
+    if (user == null) return null;
+
+    DocumentSnapshot userDoc = await FirebaseFirestore.instance
+        .collection('users_with_Google')
+        .doc(user.uid)
+        .get();
+
+    if (!userDoc.exists) {
+      await FirebaseFirestore.instance
+          .collection('users_with_Google')
+          .doc(user.uid)
+          .set({
+        'username': user.displayName ?? 'No Name',
+        'email': user.email ?? 'No Email',
+        'profileImageUrl': user.photoURL ?? '',
+        'createdAt': Timestamp.now(),
+      });
+    }
+
+    print('Google user stored in Firestore successfully.');
+    return user;
+  } catch (e) {
+    print('Google Sign-In Error: $e');
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Google sign-in failed: $e')),
+    );
+    return null;
+  }
+}
+
 
   @override
   void dispose() {
@@ -96,7 +176,15 @@ class _LoginPageState extends State<LoginPage> {
                 _buildGradientButton(
                   text: 'Sign in',
                   onPressed: () {
-                    // Handle sign in
+                    if (_emailController.text.isEmpty ||
+                        _passwordController.text.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                            content: Text('Please fill all fields.')),
+                      );
+                    } else {
+                      signInWithEmailAndPassword(context);
+                    }
                   },
                 ),
                 const SizedBox(height: 20),
@@ -251,8 +339,19 @@ class _LoginPageState extends State<LoginPage> {
         _buildSocialButton(
           icon: Image.asset('assets/images/google_icon.png',
               width: 24, height: 24),
-          onPressed: () {
-            // Handle Google sign in
+          onPressed: () async {
+            User? user = await _googleSignInMethod();
+            if (user != null) {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const ShoeProductsPage()),
+              );
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text("Connection with Google failed")),
+              );
+            }
           },
         ),
         const SizedBox(width: 16),

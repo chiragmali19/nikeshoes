@@ -1,7 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:nikeshoes/homepage.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
+
 import 'package:nikeshoes/screens/StartUpScreens/login_screen.dart';
+import 'package:nikeshoes/shoesproduct_screen.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({Key? key}) : super(key: key);
@@ -15,6 +21,123 @@ class _SignupPageState extends State<SignupPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   bool _obscurePassword = true;
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
+
+  File? _image; // Store picked image
+
+  // **Create User with Email & Password**
+  Future<void> createUserWithEmailAndPassword() async {
+    if (_usernameController.text.isEmpty ||
+        _emailController.text.isEmpty ||
+        _passwordController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please fill all fields.')),
+      );
+      return;
+    }
+
+    try {
+      final credential = await _auth.createUserWithEmailAndPassword(
+        email: _emailController.text,
+        password: _passwordController.text,
+      );
+      await _auth.currentUser?.updateDisplayName(_usernameController.text);
+
+      // Default profile image
+      String defaultImage =
+          'https://img.freepik.com/premium-vector/default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-vector-illustration_561158-3467.jpg';
+
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(credential.user!.uid)
+          .set({
+        'username': _usernameController.text,
+        'email': _emailController.text,
+        'profileImageUrl': defaultImage, // Ensure field exists
+        'createdAt': Timestamp.now(),
+      });
+
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const ShoeProductsPage()),
+      );
+    } on FirebaseAuthException catch (e) {
+      String errorMessage = '';
+      if (e.code == 'weak-password') {
+        errorMessage = 'The password provided is too weak.';
+      } else if (e.code == 'email-already-in-use') {
+        errorMessage = 'The account already exists for that email.';
+      } else {
+        errorMessage = e.message ?? 'An error occurred during sign up.';
+      }
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(errorMessage)),
+      );
+    }
+  }
+
+  // **Google Sign-In Method**
+  Future<User?> _googleSignInMethod() async {
+    try {
+      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+      if (googleUser == null) {
+        return null; // User canceled sign-in
+      }
+
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      final UserCredential userCredential =
+          await _auth.signInWithCredential(credential);
+
+      final User? user = userCredential.user;
+      if (user == null) return null;
+
+      DocumentSnapshot userDoc = await FirebaseFirestore.instance
+          .collection('users_with_Google')
+          .doc(user.uid)
+          .get();
+
+      if (!userDoc.exists) {
+        await FirebaseFirestore.instance
+            .collection('users_with_Google')
+            .doc(user.uid)
+            .set({
+          'username': user.displayName ?? 'No Name',
+          'email': user.email ?? 'No Email',
+          'profileImageUrl': user.photoURL ?? '',
+          'createdAt': Timestamp.now(),
+        });
+      }
+
+      print('Google user stored in Firestore successfully.');
+      return user;
+    } catch (e) {
+      print('Google Sign-In Error: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Google sign-in failed: $e')),
+      );
+      return null;
+    }
+  }
+
+  // **Pick Image from Camera or Gallery**
+  Future<void> _pickImage() async {
+    final ImagePicker _picker = ImagePicker();
+    XFile? pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      setState(() {
+        _image = File(pickedFile.path);
+      });
+    }
+  }
 
   @override
   void dispose() {
@@ -45,7 +168,7 @@ class _SignupPageState extends State<SignupPage> {
                 ),
                 const SizedBox(height: 20),
                 const Text(
-                  'Welcome',
+                  'Create Account',
                   style: TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.w600,
@@ -54,16 +177,16 @@ class _SignupPageState extends State<SignupPage> {
                 ),
                 const SizedBox(height: 8),
                 const Text(
-                  'Create your account',
+                  'Sign up to get started',
                   style: TextStyle(
                     fontSize: 14,
                     color: Color(0xFF7D7D7D),
                   ),
                 ),
-                const SizedBox(height: 30),
+                const SizedBox(height: 20),
                 _buildTextField(
                   controller: _usernameController,
-                  hintText: 'User name',
+                  hintText: 'Full Name',
                   icon: Icons.person_outline,
                 ),
                 const SizedBox(height: 16),
@@ -93,13 +216,13 @@ class _SignupPageState extends State<SignupPage> {
                     if (_usernameController.text.isEmpty ||
                         _emailController.text.isEmpty ||
                         _passwordController.text.isEmpty) {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                          content: Text('Please fill all fields.')));
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                            content: Text('Please fill all fields.')),
+                      );
                     } else {
-                      // _signUp();
-                      // HomePage();
+                      createUserWithEmailAndPassword();
                     }
-                    // Handle sign up
                   },
                 ),
                 const SizedBox(height: 20),
@@ -128,14 +251,14 @@ class _SignupPageState extends State<SignupPage> {
                     ),
                     TextButton(
                       onPressed: () {
-                        Navigator.pushReplacement(
+                        Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => const LoginPage()),
                         );
                       },
                       child: const Text(
-                        'Sign in',
+                        'Log in',
                         style: TextStyle(
                           color: Color(0xFFF76B1C),
                           fontWeight: FontWeight.bold,
@@ -254,8 +377,19 @@ class _SignupPageState extends State<SignupPage> {
         _buildSocialButton(
           icon: Image.asset('assets/images/google_icon.png',
               width: 24, height: 24),
-          onPressed: () {
-            // Handle Google sign in
+          onPressed: () async {
+            User? user = await _googleSignInMethod();
+            if (user != null) {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const ShoeProductsPage()),
+              );
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text("Connection with Google failed")),
+              );
+            }
           },
         ),
         const SizedBox(width: 16),
